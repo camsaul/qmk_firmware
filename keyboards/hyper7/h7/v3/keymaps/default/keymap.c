@@ -31,7 +31,7 @@ enum unicode_names {
     PRIME,
     PIPE,
 
-// APL
+    // APL
     N_ARY_LOGICAL_AND,
     N_ARY_LOGICAL_OR,
     N_ARY_INTERSECT,
@@ -59,7 +59,7 @@ enum unicode_names {
     LESS_THAN_OR_EQUAL,
     GREATER_THAN_OR_EQUAL,
 
-// [main board] row 0
+    // [main board] row 0
     CONTOUR_INTEGRAL,
     COPTIC_LC_DEI,
     DOUBLE_DAGGER,
@@ -78,8 +78,8 @@ enum unicode_names {
     SQUARE_ORIGINAL_OF,
 
 
-// Greek
-// [main board] row 1
+    // Greek
+    // [main board] row 1
     GREEK_LC_THETA,
     GREEK_UC_THETA,
     GREEK_LC_OMEGA,
@@ -103,7 +103,7 @@ enum unicode_names {
     MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET,
     MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET,
 
-// [main board] row 2
+    // [main board] row 2
     GREEK_LC_ALPHA,
     GREEK_UC_ALPHA,
     GREEK_LC_SIGMA,
@@ -125,7 +125,7 @@ enum unicode_names {
     TWO_DOT_LEADER,
     BULLET,
 
-// [main board] row 3
+    // [main board] row 3
     GREEK_LC_ZETA,
     GREEK_UC_ZETA,
     GREEK_LC_XI,
@@ -146,7 +146,7 @@ enum unicode_names {
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-// Unicode char definitions
+    // Unicode char definitions
     [AT_SYMBOL] = 0x0040,
     [GBP] = 0x00A3,
     [JPY] = 0x00A5,
@@ -162,7 +162,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [PRIME] = 0x2019,
     [PIPE] = 0x2502,
 
-// APL
+    // APL
     [N_ARY_LOGICAL_AND] = 0x22C0,
     [N_ARY_LOGICAL_OR] = 0x22C1,
     [N_ARY_INTERSECT] = 0x22C2,
@@ -190,8 +190,8 @@ const uint32_t PROGMEM unicode_map[] = {
     [LESS_THAN_OR_EQUAL] = 0x2264,
     [GREATER_THAN_OR_EQUAL] = 0x2265,
 
-// Greek
-// [main board] row 0
+    // Greek
+    // [main board] row 0
     [CONTOUR_INTEGRAL] = 0x222E,
     [COPTIC_LC_DEI] = 0x03EF,
     [DOUBLE_DAGGER] = 0x2021,
@@ -203,7 +203,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [MULTIPLICATION] = 0x00D7,
     [PILCROW] = 0x00B6,
     [LARGE_CIRCLE] = 0x25EF,
-//  [THREE_EM_DASH] = 0x2E3B,
+    //  [THREE_EM_DASH] = 0x2E3B,
     [HORIZONTAL_BAR] = 0x2015,
     [APPROXIMATELY_EQUAL_TO] = 0x2248,
     [DOUBLE_VERTICAL_LINE] = 0x2016,
@@ -211,7 +211,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [SQUARE_ORIGINAL_OF] = 0x2290,
 
 
-// [main board] row 1
+    // [main board] row 1
     [GREEK_LC_THETA] = 0x03B8,
     [GREEK_UC_THETA] = 0x0398,
     [GREEK_LC_OMEGA] = 0x03C9,
@@ -235,7 +235,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET] = 0x27E6,
     [MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET] = 0x27E7,
 
-// [main board] row 2
+    // [main board] row 2
     [GREEK_LC_ALPHA] = 0x03B1,
     [GREEK_UC_ALPHA] = 0x0391,
     [GREEK_LC_SIGMA] = 0x03C3,
@@ -257,7 +257,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [TWO_DOT_LEADER] = 0x2025,
     [BULLET] = 0x2022,
 
-// [main board] row 3
+    // [main board] row 3
     [GREEK_LC_ZETA] = 0x03B6,
     [GREEK_UC_ZETA] = 0x0396,
     [GREEK_LC_XI] = 0x03BE,
@@ -295,7 +295,7 @@ enum custom_keycodes {
     H_CLEAR_INPUT,
     H_CLEAR_SCREEN,
     H_HOLD_OUTPUT,
-    H_STOP_OUTPUT,
+    H_STOP_INPUT,
     H_ABORT,
     H_BREAK,
     H_RESUME,
@@ -322,14 +322,16 @@ enum custom_keycodes {
     H_COMPLETE,
 
     // main board r1
+    H_FIND,
     H_WRITE,
     H_DOUBLE_QUOTE__PLUS_MINUS,
-    H_COLON__TILDE,
+    /* H_COLON__TILDE, */
     H_L_BRACE__L_CHEVRON,
     H_R_BRACE__R_CHEVRON,
 
     // main board r2
     H_MARK,
+    H_UNDO,
     H_LEFT_PAREN__LEFT_BRACKET,
     H_RIGHT_PAREN__RIGHT_BRACKET,
 
@@ -337,7 +339,7 @@ enum custom_keycodes {
     H_SELECT,
     H_DEBUG,
     H_SEMI_COLON__BACK_TICK,
-    H_TICK__QUOTE,
+    /* H_TICK__QUOTE, */
     H_LINE,
     H_PAGE,
 
@@ -348,7 +350,19 @@ enum custom_keycodes {
     // main board r5
     H_EOF,
     H_7BIT,
-    H_CIRCLE_SM
+    H_CIRCLE_SM,
+
+    // cam's custom stuff.
+    H_HAND_RIGHT,
+    H_HAND_LEFT,
+    H_HAND_UP,
+    H_HAND_DOWN,
+    H_ROMAN_NUMERAL_I,
+    H_ROMAN_NUMERAL_II,
+    H_ROMAN_NUMERAL_III,
+    H_ROMAN_NUMERAL_IV,
+    H_PASTE,
+    H_CUT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -373,7 +387,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | F11 | F12 |Home | EOF |#|Prev |Next |7bit | Alt | Hyper  | Spr |  Ctrl  | Space |TRNS |  Del   |  Ctrl  | Spr  | Hyper  |Meta |Left |Down |Right|#| Del |  0  |  .  | Run |
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
      *  Incomplete mappings
-     *  r1: H_MACRO, H_TERMINAL, H_OVERSTRIKE, H_HOLD_OUTPUT, H_STOP_OUTPUT, H_CALL
+     *  r1: H_MACRO, H_TERMINAL, H_OVERSTRIKE, H_HOLD_OUTPUT, H_STOP_INPUT, H_CALL
      *  r2: H_LOCAL, H_NETWORK, H_SYSTEM, H_REFRESH, H_BUFFER, H_SQUARE, H_CIRCLE, H_TRIANGLE, H_DIAMOND, H_REPEAT, H_TRANSMIT, H_STATUS
      *  r3: H_COMPLETE
      *
@@ -383,17 +397,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *  r4: H_TTY
      *  r2: H_7BIT, H_CIRCLE_SM
      */
-    [_BASE] = LAYOUT_h7v3_183(
-        H_HELP,            H_MACRO,           H_TERMINAL,           H_QUOTE,             H_OVERSTRIKE,            H_CLEAR_INPUT,           H_CLEAR_SCREEN,                 H_HOLD_OUTPUT,             H_STOP_OUTPUT,          H_ABORT,           H_BREAK,              H_RESUME,            H_CALL,              KC_NLCK,           //14
-        H_LOCAL,           H_NETWORK,         H_SYSTEM,             H_REFRESH,           H_BUFFER,                H_SQUARE,                H_CIRCLE,                       H_TRIANGLE,                H_DIAMOND,              H_REPEAT,          H_TRANSMIT,           H_STATUS,            H_SUSPEND,           KC_CLCK,           //14
-        KC_F1,   KC_F2,    H_CLOSE,  H_OPEN,  KC_ESC,               KC_QUES,    KC_EXLM, X(AT_SYMBOL),    X(GBP), X(EURO),        X(JPY),  X(BACKTICK),    X(DQUOTE_OPEN), X(DQUOTE_CLOSE), X(PRIME), KC_UNDS,       KC_LABK, KC_RABK,  X(PIPE), KC_LCBR,    KC_RCBR,  H_COMPLETE,          KC_CIRC,   KC_PERC,  KC_HASH,  KC_DLR,  //26
+    [_BASE] = LAYOUT_h7v3_183
+    (
+     H_HELP,            H_MACRO,           H_TERMINAL,           H_QUOTE,              H_OVERSTRIKE,                                             H_CLEAR_INPUT,             H_CLEAR_SCREEN,                        H_HOLD_OUTPUT,                           H_STOP_INPUT,           H_ABORT,           H_BREAK,              H_RESUME,            H_CALL,              KC_NLCK,           //14
+     H_LOCAL,           H_NETWORK,         H_SYSTEM,             H_REFRESH,            H_BUFFER,                                                 H_SQUARE,                  H_CIRCLE,                              H_TRIANGLE,                              H_DIAMOND,              H_REPEAT,          H_TRANSMIT,           H_STATUS,            H_SUSPEND,           KC_CLCK,           //14
+     KC_F1,   KC_F2,    H_CLOSE,  H_OPEN,  KC_ESC,               KC_QUES,    KC_EXLM,  H_LEFT_PAREN__LEFT_BRACKET, H_RIGHT_PAREN__RIGHT_BRACKET, H_HAND_LEFT, H_HAND_RIGHT, H_ROMAN_NUMERAL_I, H_ROMAN_NUMERAL_II, H_ROMAN_NUMERAL_III, H_ROMAN_NUMERAL_IV, KC_UNDS,       KC_LABK, KC_RABK,  X(PIPE), KC_LCBR,    KC_RCBR,  H_COMPLETE,          KC_CIRC,   KC_PERC,  KC_HASH,  KC_DLR,  //26
 
-        KC_F3,   KC_F4,    KC_FIND,  H_WRITE, KC_LEAD,  H_DOUBLE_QUOTE__PLUS_MINUS, H_COLON__TILDE,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,    KC_6,     KC_7,    KC_8,     KC_9,    KC_0,     KC_MINS,  KC_EQL,  KC_NUBS, H_L_BRACE__L_CHEVRON,  H_R_BRACE__R_CHEVRON,  KC_UNDO,    KC_TILD,   KC_SLSH,  KC_PAST,  KC_PMNS, //27
-        KC_F5,   KC_F6,    KC_EXLM,  KC_UNDO, KC_PASTE, KC_CUT ,  KC_TAB ,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,    KC_Y,     KC_U,    KC_I,     KC_O,    KC_P,     KC_LPRN,  KC_RPRN, KC_BSPC, KC_CLEAR, KC_HOME,                                                                 KC_P7,     KC_P8,    KC_P9,    KC_PPLS, //26
-        KC_F7,   KC_F8,    KC_SELECT,H_DEBUG, MO(_FN), KC_NO,       MO(_APL), KC_A,     KC_S,     KC_D,     KC_F,     KC_G,    KC_H,     KC_J,    KC_K,     KC_L,    H_SEMI_COLON__BACK_TICK,  KC_QUOT,  KC_ENT , H_LINE, H_PAGE,                                                           KC_P4,     KC_P5,    KC_P6,    KC_AMPR, //25
-        KC_F9,   KC_F10,   H_TTY,    KC_LOCK, KC_HOME,  KC_END ,  MO(_GREEK), KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,    KC_B,     KC_N,    KC_M,     KC_COMM, KC_DOT,   KC_SLSH,  KC_RSFT, MO(_GREEK),KC_UP,    KC_END,                                                              KC_P1,     KC_P2,    KC_P3,    KC_EQL,  //26
-        KC_F11,  KC_F12,   KC_HOME,  H_EOF,   KC_MPRV,  KC_MNXT,  H_7BIT,  KC_LALT,  KC_HYPR,  KC_LGUI,  KC_LCTL,  KC_SPC,  H_CIRCLE_SM,  KC_DEL,  KC_RCTL,  KC_RGUI, KC_HYPR,  KC_RGUI,  KC_LEFT, KC_DOWN, KC_RGHT,                                                                        KC_DEL,    KC_P0,    KC_PDOT,  KC_ENTER //25
-    ),
+     KC_F3,   KC_F4,    H_FIND,   H_WRITE, KC_LEAD,  H_DOUBLE_QUOTE__PLUS_MINUS, KC_GRAVE,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,    KC_6,     KC_7,    KC_8,     KC_9,    KC_0,     KC_MINS,  KC_EQL,  KC_NUBS, H_L_BRACE__L_CHEVRON,  H_R_BRACE__R_CHEVRON,  H_UNDO,    KC_TILD,   KC_SLSH,  KC_PAST,  KC_PMNS, //27
+     KC_F5,   KC_F6,    H_MARK,   H_UNDO,  H_PASTE,  H_CUT ,   KC_TAB ,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,    KC_Y,     KC_U,    KC_I,     KC_O,    KC_P,     KC_LBRC,  KC_RBRC, KC_BSPC, KC_CLEAR, KC_HOME,                                                                 KC_P7,     KC_P8,    KC_P9,    KC_PPLS, //26
+     KC_F7,   KC_F8,    KC_SELECT,H_DEBUG, MO(_FN),  KC_NO,       MO(_APL), KC_A,     KC_S,     KC_D,     KC_F,     KC_G,    KC_H,     KC_J,    KC_K,     KC_L,    KC_SCOLON,  KC_QUOT,  KC_ENT , H_LINE, H_PAGE,                                                           KC_P4,     KC_P5,    KC_P6,    KC_AMPR, //25
+     KC_F9,   KC_F10,   H_TTY,    KC_LOCK, KC_HOME,  KC_END ,  MO(_GREEK), KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,    KC_B,     KC_N,    KC_M,     KC_COMM, KC_DOT,   KC_SLSH,  KC_RSFT, MO(_GREEK),KC_UP,    KC_END,                                                              KC_P1,     KC_P2,    KC_P3,    KC_EQL,  //26
+     KC_F11,  KC_F12,   KC_HOME,  H_EOF,   H_HAND_UP,H_HAND_DOWN, H_7BIT,  KC_RCTL,  KC_LALT,  KC_LGUI,  KC_LCTL,  KC_SPC,  H_CIRCLE_SM,  KC_SPC,  KC_LCTL,  KC_APP, KC_RCTL,  KC_RALT,  KC_LEFT, KC_DOWN, KC_RGHT,                                                                        KC_DEL,    KC_P0,    KC_PDOT,  KC_ENTER //25
+     ),
     /* _APL: Cadet Symbol Layer (Default)
      * ,-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------.
      * |           |           |#|           |           |           |           |           |           |           |           |           |           |#|           |           |
@@ -416,16 +431,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
      */
     [_APL] = LAYOUT_h7v3_183(
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
-        FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
+                             FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
+                             FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
+                             FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
 
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(N_ARY_LOGICAL_AND), X(N_ARY_LOGICAL_OR), X(N_ARY_INTERSECT), X(N_ARY_UNION), X(SUBSET_OF),X(SUPERSET_OF), X(FORALL),X(LEMNISCATE), X(THERE_EXISTS),X(PARTIAL_DIFFERENTIAL),      FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(UP_TACK), X(DOWN_TACK), X(RIGHT_TACK), X(LEFT_TACK), X(UPWARDS_ARROW),X(DOWNARDS_ARROW), X(LEFTWARDS_ARROW),X(RIGHTWARDS_ARROW), X(LEFTRIGHT_ARROW),     FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,  X(LEFT_FLOOR), X(LEFT_CEILING), X(NOT_EQUAL_TO), X(ASYMPTOTICALLY_EQUAL_TO),X(NOT_ASYMPTOTICALLY_EQUAL_TO), X(LESS_THAN_OR_EQUAL),X(GREATER_THAN_OR_EQUAL),      FT,      FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT
-    ),
+                             FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
+                             FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(N_ARY_LOGICAL_AND), X(N_ARY_LOGICAL_OR), X(N_ARY_INTERSECT), X(N_ARY_UNION), X(SUBSET_OF),X(SUPERSET_OF), X(FORALL),X(LEMNISCATE), X(THERE_EXISTS),X(PARTIAL_DIFFERENTIAL),      FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
+                             FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(UP_TACK), X(DOWN_TACK), X(RIGHT_TACK), X(LEFT_TACK), X(UPWARDS_ARROW),X(DOWNARDS_ARROW), X(LEFTWARDS_ARROW),X(RIGHTWARDS_ARROW), X(LEFTRIGHT_ARROW),     FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT,
+                             FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,  X(LEFT_FLOOR), X(LEFT_CEILING), X(NOT_EQUAL_TO), X(ASYMPTOTICALLY_EQUAL_TO),X(NOT_ASYMPTOTICALLY_EQUAL_TO), X(LESS_THAN_OR_EQUAL),X(GREATER_THAN_OR_EQUAL),      FT,      FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
+                             FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT
+                             ),
 
     /* _GREEK: lower/upper case greek (needs shift modifier application for upper case chars) from codepage U0370.pdf \
      * ,-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------.
@@ -449,16 +464,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
      */
     [_GREEK] = LAYOUT_h7v3_183(
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
-        FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,       FT,      FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
+                               FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
+                               FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
+                               FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,       FT,      FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
 
-        FT,      FT,      FT,       FT,       FT, X(CONTOUR_INTEGRAL),  FT,  X(COPTIC_LC_DEI), X(DOUBLE_DAGGER), X(NABLA), X(CENT), X(DEGREE), X(APL_QUAD), X(DIVISION), X(MULTIPLICATION), X(PILCROW), X(LARGE_CIRCLE), X(HORIZONTAL_BAR), X(APPROXIMATELY_EQUAL_TO), X(DOUBLE_VERTICAL_LINE), X(SQUARE_IMAGE_OF), X(SQUARE_ORIGINAL_OF),       FT,       FT,                 FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,  XP(GREEK_LC_THETA, GREEK_UC_THETA), XP(GREEK_LC_OMEGA, GREEK_UC_OMEGA), XP(GREEK_LC_EPSILON, GREEK_UC_EPSILON), XP(GREEK_LC_RHO, GREEK_UC_RHO), XP(GREEK_LC_TAU, GREEK_UC_TAU),XP(GREEK_LC_PSI, GREEK_UC_PSI), XP(GREEK_LC_UPSILON, GREEK_UC_UPSILON),XP(GREEK_LC_IOTA, GREEK_UC_IOTA), XP(GREEK_LC_OMICRON, GREEK_UC_OMICRON),XP(GREEK_LC_PI, GREEK_UC_PI), X(MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET), X(MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET),     FT,      FT,      FT,                            FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,  XP(GREEK_LC_ALPHA, GREEK_UC_ALPHA), XP(GREEK_LC_SIGMA, GREEK_UC_SIGMA), XP(GREEK_LC_DELTA, GREEK_UC_DELTA), XP(GREEK_LC_PHI, GREEK_UC_PHI), XP(GREEK_LC_GAMMA, GREEK_UC_GAMMA),XP(GREEK_LC_ETA, GREEK_UC_ETA), XP(GREEK_LC_YOT, GREEK_UC_YOT),XP(GREEK_LC_KAPPA, GREEK_UC_KAPPA), XP(GREEK_LC_LAMDA, GREEK_UC_LAMDA), X(TWO_DOT_LEADER), X(BULLET),      FT,      FT,      FT,                                     FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,  FT,  XP(GREEK_LC_ZETA, GREEK_UC_ZETA), XP(GREEK_LC_XI, GREEK_UC_XI), XP(GREEK_LC_CHI, GREEK_UC_CHI), XP(GREEK_LC_FINAL_SIGMA, GREEK_UC_SIGMA),XP(GREEK_LC_BETA, GREEK_UC_BETA), XP(GREEK_LC_NU, GREEK_UC_NU),XP(GREEK_LC_MU, GREEK_UC_MU), X(MUCH_LESS_THAN),X(MUCH_GREATER_THAN), X(INTEGRAL),      FT,      FT,      FT,      FT,                            FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,                                     FT,      FT,       FT,      FT
-    ),
+                               FT,      FT,      FT,       FT,       FT, X(CONTOUR_INTEGRAL),  FT,  X(COPTIC_LC_DEI), X(DOUBLE_DAGGER), X(NABLA), X(CENT), X(DEGREE), X(APL_QUAD), X(DIVISION), X(MULTIPLICATION), X(PILCROW), X(LARGE_CIRCLE), X(HORIZONTAL_BAR), X(APPROXIMATELY_EQUAL_TO), X(DOUBLE_VERTICAL_LINE), X(SQUARE_IMAGE_OF), X(SQUARE_ORIGINAL_OF),       FT,       FT,                 FT,       FT,      FT,
+                               FT,      FT,      FT,       FT,       FT,       FT,       FT,  XP(GREEK_LC_THETA, GREEK_UC_THETA), XP(GREEK_LC_OMEGA, GREEK_UC_OMEGA), XP(GREEK_LC_EPSILON, GREEK_UC_EPSILON), XP(GREEK_LC_RHO, GREEK_UC_RHO), XP(GREEK_LC_TAU, GREEK_UC_TAU),XP(GREEK_LC_PSI, GREEK_UC_PSI), XP(GREEK_LC_UPSILON, GREEK_UC_UPSILON),XP(GREEK_LC_IOTA, GREEK_UC_IOTA), XP(GREEK_LC_OMICRON, GREEK_UC_OMICRON),XP(GREEK_LC_PI, GREEK_UC_PI), X(MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET), X(MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET),     FT,      FT,      FT,                            FT,      FT,       FT,      FT,
+                               FT,      FT,      FT,       FT,       FT,       FT,       FT,  XP(GREEK_LC_ALPHA, GREEK_UC_ALPHA), XP(GREEK_LC_SIGMA, GREEK_UC_SIGMA), XP(GREEK_LC_DELTA, GREEK_UC_DELTA), XP(GREEK_LC_PHI, GREEK_UC_PHI), XP(GREEK_LC_GAMMA, GREEK_UC_GAMMA),XP(GREEK_LC_ETA, GREEK_UC_ETA), XP(GREEK_LC_YOT, GREEK_UC_YOT),XP(GREEK_LC_KAPPA, GREEK_UC_KAPPA), XP(GREEK_LC_LAMDA, GREEK_UC_LAMDA), X(TWO_DOT_LEADER), X(BULLET),      FT,      FT,      FT,                                     FT,      FT,       FT,      FT,
+                               FT,      FT,      FT,       FT,       FT,       FT,       FT,  FT,  XP(GREEK_LC_ZETA, GREEK_UC_ZETA), XP(GREEK_LC_XI, GREEK_UC_XI), XP(GREEK_LC_CHI, GREEK_UC_CHI), XP(GREEK_LC_FINAL_SIGMA, GREEK_UC_SIGMA),XP(GREEK_LC_BETA, GREEK_UC_BETA), XP(GREEK_LC_NU, GREEK_UC_NU),XP(GREEK_LC_MU, GREEK_UC_MU), X(MUCH_LESS_THAN),X(MUCH_GREATER_THAN), X(INTEGRAL),      FT,      FT,      FT,      FT,                            FT,      FT,       FT,      FT,
+                               FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,                                     FT,      FT,       FT,      FT
+                               ),
 
     /* _FN: Function layer, media & LED mods
      * ,-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------.
@@ -482,273 +497,375 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
      */
     [_FN] = LAYOUT_h7v3_183(
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,               FT,                 FT,                  FT,                RESET,
-        FT,               FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,               FT,                 FT,                  FT,                FT,
-        FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
+                            FT,               FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,               FT,                 FT,                  FT,                RESET,
+                            FT,               FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,                 FT,               FT,                 FT,                  FT,                FT,
+                            FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
 
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       UC_M_WI,  FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       UC_MOD,   FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       UC_M_LN,  FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       H_LOCK,   FT,       FT,       FT,       FT,       FT,       FT,       UC_M_WC,  FT,       FT,       FT,       UC_M_MA,  FT,       FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
-        FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT
-    )
+                            FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
+                            FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       UC_M_WI,  FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
+                            FT,      FT,      FT,       FT,       FT,       UC_MOD,   FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       UC_M_LN,  FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT,
+                            FT,      FT,      FT,       H_LOCK,   FT,       FT,       FT,       FT,       FT,       FT,       UC_M_WC,  FT,       FT,       FT,       UC_M_MA,  FT,       FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
+                            FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT
+                            )
 };
 
 // activate leader functionality
 LEADER_EXTERNS();
 
 void matrix_scan_keymap(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
 
-    // slash :: find
-    SEQ_ONE_KEY(KC_SLASH) {
-      SEND_STRING(SS_LCTRL(SS_TAP(X_F)));
-    }
+        // slash :: find
+        SEQ_ONE_KEY(KC_SLASH) {
+            SEND_STRING(SS_LCTRL(SS_TAP(X_F)));
+        }
 
-    // Copy word
-    SEQ_TWO_KEYS(KC_W, KC_C) {
-      SEND_STRING(SS_LCTRL(SS_TAP(X_LEFT))SS_LSFT(SS_LCTRL(SS_TAP(X_RIGHT)))SS_LCTRL(SS_TAP(X_C)));
+        // Copy word
+        SEQ_TWO_KEYS(KC_W, KC_C) {
+            SEND_STRING(SS_LCTRL(SS_TAP(X_LEFT))SS_LSFT(SS_LCTRL(SS_TAP(X_RIGHT)))SS_LCTRL(SS_TAP(X_C)));
+        }
+        // Copy line
+        SEQ_TWO_KEYS(KC_L, KC_C) {
+            SEND_STRING(SS_TAP(X_HOME)SS_LSFT(SS_TAP(X_END))SS_LCTRL(SS_TAP(X_C)));
+        }
+        // Copy all
+        SEQ_TWO_KEYS(KC_A, KC_C) {
+            SEND_STRING(SS_LCTRL(SS_TAP(X_A)SS_TAP(X_C)));
+        }
     }
-    // Copy line
-    SEQ_TWO_KEYS(KC_L, KC_C) {
-      SEND_STRING(SS_TAP(X_HOME)SS_LSFT(SS_TAP(X_END))SS_LCTRL(SS_TAP(X_C)));
-    }
-    // Copy all
-    SEQ_TWO_KEYS(KC_A, KC_C) {
-      SEND_STRING(SS_LCTRL(SS_TAP(X_A)SS_TAP(X_C)));
-    }
-  }
 
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-      // [daughter board] row 1 POS key macros
-      case H_HELP:
-        send_string("[HELP] key");
-        return false;
-      case H_MACRO:
-        send_string("[MACRO] key");
-        return false;
-      case H_TERMINAL:
-        send_string("[TERMINAL] key");
-        return false;
-      case H_QUOTE:
-        // wraps selected (editable) text in quotation marks
-        send_string(SS_LCTL(SS_TAP(X_X))SS_TAP(X_QUOTE)SS_LCTL(SS_TAP(X_V))SS_TAP(X_QUOTE));
-        return false;
-      case H_OVERSTRIKE:
-        // toggles insert/overstrike
-        send_string(SS_TAP(X_INSERT));
-        return false;
-      case H_CLEAR_INPUT:
-        // terminal: clears from the cursor to the beginning of the current command
-        send_string(SS_LCTL(SS_TAP(X_U)));
-        return false;
-      case H_CLEAR_SCREEN:
-        send_string(SS_LCTL(SS_TAP(X_L)));
-        // ^ linux/osx shell specific, for windows command replace with
-        // send_string(SS_TAP(X_C)SS_TAP(X_L)SS_TAP(X_S)SS_TAP(KC_ENTER));
-        return false;
-      case H_HOLD_OUTPUT:
-        send_string("[HOLD OUTPUT] key");
-        return false;
-      case H_STOP_OUTPUT:
-        send_string("[STOP OUTPUT] key");
-        return false;
-      case H_ABORT:
-        send_string(SS_LCTL(SS_TAP(X_C)));
-        return false;
-      case H_BREAK:
-        send_string(SS_TAP(X_PAUSE));
-        return false;
-      case H_RESUME:
-        send_string(SS_TAP(X_F)SS_TAP(X_G)SS_TAP(X_ENTER));
-        return false;
-      case H_CALL:
-        send_string("[CALL] key");
-        return false;
+    if (record->event.pressed) {
+        switch(keycode) {
+            // [daughter board] row 1 POS key macros
+        case H_HELP:
+            send_string(SS_TAP(X_F1));
+            return false;
 
-      // [daughter board] row 2 POS key macros
-      case H_LOCAL:
-        send_string("[LOCAL] key");
-        return false;
-      case H_NETWORK:
-        send_string("[NETWORK] key");
-        return false;
-      case H_SYSTEM:
-        send_string("[SYSTEM] key");
-        return false;
-      case H_REFRESH:
-        send_string(SS_LCTL(SS_TAP(X_R)));
-        return false;
-      case H_BUFFER:
-        send_string("[BUFFER] key");
-        return false;
-      case H_SQUARE:
-        send_string("[SQUARE] key");
-        return false;
-      case H_CIRCLE:
-        send_string("[CIRCLE] key");
-        return false;
-      case H_TRIANGLE:
-        send_string("[TRIANGLE] key");
-        return false;
-      case H_DIAMOND:
-        send_string("[DIAMOND] key");
-        return false;
-      case H_REPEAT:
-        send_string("[REPEAT] key");
-        return false;
-      case H_TRANSMIT:
-        send_string("[TRANSMIT] key");
-        return false;
-      case H_STATUS:
-        send_string("[STATUS] key");
-        return false;
-      case H_SUSPEND:
-        send_string(SS_LCTL(SS_TAP(X_Z)));
-        return false;
+        case H_MACRO:
+            send_string("[MACRO] key");
+            return false;
 
-      // [daughter board] row 3
-      case H_CLOSE:
-        // ctrl-w: closes a tab/panel within an application
-        send_string(SS_LCTL(SS_TAP(X_W)));
-        return false;
-      case H_OPEN:
-        // ctrl-n: opens a tab/panel
-        send_string(SS_LCTL(SS_TAP(X_N)));
-        return false;
-      case H_COMPLETE:
-        // tab tab: bash command line completion
-        send_string(SS_TAP(X_TAB)SS_TAP(X_TAB));
-        return false;
+        case H_TERMINAL:
+            send_string("[TERMINAL] key");
+            return false;
 
-      // [main board] row 1
-      case H_WRITE:
-        send_string(SS_LCTL(SS_TAP(X_S)));
-        return false;
+        case H_QUOTE:
+            // wraps selected (editable) text in quotation marks
+            send_string(SS_LCTL(SS_TAP(X_X))SS_TAP(X_QUOTE)SS_LCTL(SS_TAP(X_V))SS_TAP(X_QUOTE));
+            return false;
 
-      case H_DOUBLE_QUOTE__PLUS_MINUS:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          send_unicode_string("±");
-        } else {
-          send_unicode_string("\"");
+        case H_OVERSTRIKE:
+            // toggles insert/overstrike
+            send_string(SS_TAP(X_INSERT));
+            return false;
+
+        case H_CLEAR_INPUT:
+            // terminal: clears from the cursor to the beginning of the current command
+            send_string(SS_LCTL(SS_TAP(X_U)));
+            return false;
+
+        case H_CLEAR_SCREEN:
+            send_string(SS_LCTL(SS_TAP(X_L)));
+            // ^ linux/osx shell specific, for windows command replace with
+            // send_string(SS_TAP(X_C)SS_TAP(X_L)SS_TAP(X_S)SS_TAP(KC_ENTER));
+            return false;
+
+        case H_HOLD_OUTPUT:
+            send_string(SS_TAP(X_SCROLLLOCK));
+            return false;
+
+        case H_STOP_INPUT:
+            send_string(SS_LCTL(SS_TAP(X_G)));
+            return false;
+
+        case H_ABORT:
+            send_string(SS_LCTL(SS_TAP(X_G)));
+            return false;
+
+        case H_BREAK:
+            send_string(SS_TAP(X_PAUSE));
+            return false;
+
+        case H_RESUME:
+            send_string(SS_TAP(X_PAUSE));
+            // C-u C-SPC (jump to mark)
+            /* send_string(SS_LCTL(SS_TAP(X_U)SS_TAP(X_SPACE))); */
+            return false;
+
+        case H_CALL:
+            // M-x
+            send_string(SS_LALT(SS_TAP(X_X)));
+            return false;
+
+            // [daughter board] row 2 POS key macros
+        case H_LOCAL:
+            send_string(SS_LALT(SS_LSFT(SS_TAP(X_SCOLON))));
+            return false;
+
+        case H_NETWORK:
+            send_string("[NETWORK] key");
+            return false;
+
+        case H_SYSTEM:
+            send_string(SS_LALT(SS_LSFT(SS_TAP(X_1))));
+            return false;
+
+        case H_REFRESH:
+            send_string(SS_LCTL(SS_TAP(X_R)));
+            return false;
+
+        case H_BUFFER:
+            send_string(SS_LCTL(SS_TAP(X_X)SS_TAP(X_B)));
+            return false;
+
+        case H_SQUARE:
+            send_string("[SQUARE] key");
+            return false;
+
+        case H_CIRCLE:
+            send_string(SS_LALT(SS_TAP(X_X)));
+            return false;
+
+        case H_TRIANGLE:
+            send_string("[TRIANGLE] key");
+            return false;
+
+        case H_DIAMOND:
+            send_string("[DIAMOND] key");
+            return false;
+
+        case H_REPEAT:
+            send_string(SS_LCTL(SS_TAP(X_X))SS_TAP(X_Z));
+            return false;
+
+        case H_TRANSMIT:
+            send_string("[TRANSMIT] key");
+            return false;
+
+        case H_STATUS:
+            send_string("[STATUS] key");
+            return false;
+
+        case H_SUSPEND:
+            send_string(SS_LCTL(SS_TAP(X_Z)));
+            return false;
+
+            // [daughter board] row 3
+        case H_CLOSE:
+            send_string(SS_LCTL(SS_TAP(X_X))SS_TAP(X_K));
+            return false;
+
+        case H_OPEN:
+            // Shift-open = recent files
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(send_string(SS_LCTL(SS_TAP(X_X)SS_TAP(X_R))));
+            }
+            // Ctrl-open: open file in project
+            else if (get_mods() & MOD_BIT(KC_LCTRL)) {
+                CLEAN_MODS(send_string(SS_TAP(X_F5)));
+            }
+            // (regular) open: find-file
+            else {
+                send_string(SS_LCTL(SS_TAP(X_X)SS_TAP(X_F)));
+            }
+            return false;
+
+        case H_COMPLETE:
+            // tab tab: bash command line completion
+            // send_string(SS_TAP(X_TAB)SS_TAP(X_TAB));
+            send_string("[COMPLETE] key");
+            return false;
+
+            // [main board] row 1
+        case H_FIND:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(send_string(SS_LCTL(SS_TAP(X_R))));
+            } else {
+                send_string(SS_LCTL(SS_TAP(X_S)));
+            }
+            return false;
+
+        case H_WRITE:
+            send_string(SS_LCTL(SS_TAP(X_X)SS_TAP(X_S)));
+            return false;
+
+        case H_DOUBLE_QUOTE__PLUS_MINUS:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                send_unicode_string("±");
+            } else {
+                send_unicode_string("\"");
+            }
+            return false;
+
+        /* case H_COLON__TILDE: */
+        /*     if (get_mods() & MODS_SHIFT_MASK) { */
+        /*         send_unicode_string("∼"); */
+        /*     } else { */
+        /*         send_string(":"); */
+        /*     } */
+        /*     return false; */
+
+        case H_L_BRACE__L_CHEVRON:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                send_unicode_string("‹");
+            } else {
+                send_string("{");
+            }
+            return false;
+
+        case H_R_BRACE__R_CHEVRON:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                send_unicode_string("›");
+            } else {
+                send_string("}");
+            }
+            return false;
+
+            // [main board] row 2
+        case H_MARK:
+            send_string(SS_LCTL(SS_TAP(X_SPC)));
+            return false;
+
+        case H_UNDO:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(send_string(SS_LALT(SS_LSFT(SS_TAP(X_MINUS)))));
+            } else {
+                send_string(SS_LCTL(SS_LSFT(SS_TAP(X_MINUS))));
+            }
+            return false;
+
+        case H_LEFT_PAREN__LEFT_BRACKET:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(send_string(SS_TAP(X_LBRACKET)));
+            } else {
+                send_string("(");
+            }
+            return false;
+
+        case H_RIGHT_PAREN__RIGHT_BRACKET:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(send_string(SS_TAP(X_RBRACKET)));
+            } else {
+                send_string(")");
+            }
+            return false;
+
+            // [main board] row 3
+        case H_SELECT:
+            send_string("[SELECT] key");
+            return false;
+
+        case H_DEBUG:
+            send_string("[DEBUG] key");
+            return false;
+
+        case H_SEMI_COLON__BACK_TICK:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(
+                           send_string("`");
+                           );
+            } else {
+                send_string(";");
+            }
+            return false;
+
+        /* case H_TICK__QUOTE: */
+        /*     if (get_mods() & MODS_SHIFT_MASK) { */
+        /*         // host configured for uk layout, for ansi, switch to X_QUOT */
+        /*         send_string(SS_TAP(X_2)); */
+        /*     } else { */
+        /*         send_string("'"); */
+        /*     } */
+        /*     return false; */
+
+        case H_LINE:
+            // send_string(SS_LALT(SS_TAP(X_G)));
+            return false;
+
+        case H_PAGE:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(send_string(SS_TAP(X_PGUP)));
+            } else {
+                send_string(SS_TAP(X_PGDN));
+            }
+            return false;
+
+            // [main board] row 4
+        case H_TTY:
+            send_string("[TTY] key");
+            return false;
+
+        case H_LOCK:
+            send_string("[LOCK] key");
+            return false;
+
+            // [main board] row 5
+        case H_EOF:
+            send_string(SS_LCTL(SS_TAP(X_END)));
+            return false;
+
+        case H_7BIT:
+            send_string(SS_LCTL(SS_TAP(X_ENTER)));
+            return false;
+
+        case H_CIRCLE_SM:
+            send_string(SS_LALT(SS_TAP(X_X)));
+            return false;
+
+        case H_HAND_LEFT:
+            send_string(SS_LCTL(SS_LALT(SS_TAP(X_F))));
+            return false;
+
+        case H_HAND_RIGHT:
+            send_string(SS_LCTL(SS_LALT(SS_TAP(X_B))));
+            return false;
+
+        case H_HAND_UP:
+            send_string(SS_LCTL(SS_LALT(SS_TAP(X_U))));
+            return false;
+
+        case H_HAND_DOWN:
+            send_string(SS_LCTL(SS_LALT(SS_TAP(X_D))));
+            return false;
+
+        case H_ROMAN_NUMERAL_I:
+            send_string("I");
+            return false;
+
+        case H_ROMAN_NUMERAL_II:
+            send_string("2");
+            return false;
+
+        case H_ROMAN_NUMERAL_III:
+            send_string("III");
+            return false;
+
+        case H_ROMAN_NUMERAL_IV:
+            send_string("IV");
+            return false;
+
+        case H_PASTE:
+            send_string(SS_LCTL(SS_TAP(X_Y)));
+            return false;
+
+        case H_CUT:
+            if (get_mods() & MODS_SHIFT_MASK) {
+                CLEAN_MODS(send_string(SS_LALT(SS_TAP(X_W))));
+            } else {
+                send_string(SS_LCTL(SS_TAP(X_W)));
+            }
+            return false;
         }
-        return false;
-
-      case H_COLON__TILDE:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          send_unicode_string("∼");
-        } else {
-          send_string(":");
-        }
-        return false;
-
-      case H_L_BRACE__L_CHEVRON:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          send_unicode_string("‹");
-        } else {
-          send_string("{");
-        }
-        return false;
-
-      case H_R_BRACE__R_CHEVRON:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          send_unicode_string("›");
-        } else {
-          send_string("}");
-        }
-        return false;
-
-      // [main board] row 2
-      case H_MARK:
-        send_string("[MARK] key");
-        return false;
-      case H_LEFT_PAREN__LEFT_BRACKET:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          CLEAN_MODS(
-            send_string(SS_TAP(X_LBRACKET))
-          );
-        } else {
-          send_string("(");
-        }
-        return false;
-
-      case H_RIGHT_PAREN__RIGHT_BRACKET:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          CLEAN_MODS(
-            send_string(SS_TAP(X_RBRACKET))
-          );
-        } else {
-          send_string(")");
-        }
-        return false;
-
-      // [main board] row 3
-      case H_SELECT:
-        send_string("[SELECT] key");
-        return false;
-      case H_DEBUG:
-        send_string("[DEBUG] key");
-        return false;
-      case H_SEMI_COLON__BACK_TICK:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          CLEAN_MODS(
-            send_string("`");
-          );
-        } else {
-          send_string(";");
-        }
-        return false;
-      case H_TICK__QUOTE:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          // host configured for uk layout, for ansi, switch to X_QUOT
-          send_string(SS_TAP(X_2));
-        } else {
-          send_string("'");
-        }
-        return false;
-      case H_LINE:
-        send_string("[LINE] key");
-        return false;
-      case H_PAGE:
-        if (get_mods() & MODS_SHIFT_MASK) {
-          CLEAN_MODS(
-            send_string(SS_TAP(X_PGUP));
-          );
-        } else {
-          send_string(SS_TAP(X_PGDN));
-        }
-        return false;
-
-      // [main board] row 4
-      case H_TTY:
-        send_string("[TTY] key");
-        return false;
-      case H_LOCK:
-        send_string("[LOCK] key");
-        return false;
-
-      // [main board] row 5
-      case H_EOF:
-        send_string(SS_LCTL(SS_TAP(X_END)));
-        return false;
-      case H_7BIT:
-        send_string("[7BIT] key");
-        return false;
-      case H_CIRCLE_SM:
-        send_string("[CIRCLE_SM] key");
-        return false;
     }
-  }
 
-  return true;
+    return true;
 };
 
 void led_set_keymap(uint8_t usb_led) {
-  // stub
+    // stub
 };
