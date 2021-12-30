@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   -  |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
  * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
  * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -126,8 +126,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-//SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
+//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
@@ -271,13 +271,14 @@ void render_status_main(void) {
     render_keylogger_status();
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   update_log();
   if (is_keyboard_master()) {
     render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
   } else {
     render_lily58_logo();
   }
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -286,12 +287,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-#endif // OLED_DRIVER_ENABLE
+#endif // OLED_ENABLE
 
 
 // Rotary encoder related code
 #ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { // Encoder on master side
     if(IS_LAYER_ON(_RAISE)) { // on Raise layer
       // Cursor control
@@ -326,5 +327,6 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       }
     }
   }
+    return true;
 }
 #endif
