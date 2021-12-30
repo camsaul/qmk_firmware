@@ -1,5 +1,7 @@
 #pragma once
-#include "quantum.h"
+/* #include "quantum.h" */
+#include "../../../../quantum/quantum.h"
+
 
 #define LAYOUT_h7v3_183( \
     K000,       K002,       K004,       K006,       K008,       K010,       K012,       K014,       K016,       K018,       K020,       K022,       K024,       K026,       \

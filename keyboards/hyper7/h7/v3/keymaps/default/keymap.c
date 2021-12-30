@@ -1,4 +1,5 @@
-#include QMK_KEYBOARD_H
+/* #include QMK_KEYBOARD_H */
+#include "../../v3.h"
 
 // Brevity defines
 #define FT KC_TRNS
@@ -13,6 +14,21 @@
         action;                    \
         set_mods(mods);            \
     }
+
+static uint8_t _mods = 0;
+
+static inline void push_mods(void) {
+    _mods = get_mods();
+    clear_mods();
+}
+
+static inline void pop_mods(void) {
+    set_mods(_mods);
+}
+
+static inline bool shift_pressed(void) {
+    return get_mods() & MODS_SHIFT_MASK;
+}
 
 // UNICODEMAP_ENABLE
 enum unicode_names {
@@ -29,120 +45,7 @@ enum unicode_names {
     DQUOTE_OPEN,
     DQUOTE_CLOSE,
     PRIME,
-    PIPE,
-
-    // APL
-    N_ARY_LOGICAL_AND,
-    N_ARY_LOGICAL_OR,
-    N_ARY_INTERSECT,
-    N_ARY_UNION,
-    SUBSET_OF,
-    SUPERSET_OF,
-    FORALL,
-    LEMNISCATE,
-    THERE_EXISTS,
-    PARTIAL_DIFFERENTIAL,
-    UP_TACK,
-    DOWN_TACK,
-    RIGHT_TACK,
-    LEFT_TACK,
-    UPWARDS_ARROW,
-    DOWNARDS_ARROW,
-    LEFTWARDS_ARROW,
-    RIGHTWARDS_ARROW,
-    LEFTRIGHT_ARROW,
-    LEFT_FLOOR,
-    LEFT_CEILING,
-    NOT_EQUAL_TO,
-    ASYMPTOTICALLY_EQUAL_TO,
-    NOT_ASYMPTOTICALLY_EQUAL_TO,
-    LESS_THAN_OR_EQUAL,
-    GREATER_THAN_OR_EQUAL,
-
-    // [main board] row 0
-    CONTOUR_INTEGRAL,
-    COPTIC_LC_DEI,
-    DOUBLE_DAGGER,
-    NABLA,
-    CENT,
-    DEGREE,
-    APL_QUAD,
-    DIVISION,
-    MULTIPLICATION,
-    PILCROW,
-    LARGE_CIRCLE,
-    HORIZONTAL_BAR,
-    APPROXIMATELY_EQUAL_TO,
-    DOUBLE_VERTICAL_LINE,
-    SQUARE_IMAGE_OF,
-    SQUARE_ORIGINAL_OF,
-
-
-    // Greek
-    // [main board] row 1
-    GREEK_LC_THETA,
-    GREEK_UC_THETA,
-    GREEK_LC_OMEGA,
-    GREEK_UC_OMEGA,
-    GREEK_LC_EPSILON,
-    GREEK_UC_EPSILON,
-    GREEK_LC_RHO,
-    GREEK_UC_RHO,
-    GREEK_UC_TAU,
-    GREEK_LC_TAU,
-    GREEK_UC_PSI,
-    GREEK_LC_PSI,
-    GREEK_LC_UPSILON,
-    GREEK_UC_UPSILON,
-    GREEK_LC_IOTA,
-    GREEK_UC_IOTA,
-    GREEK_LC_OMICRON,
-    GREEK_UC_OMICRON,
-    GREEK_LC_PI,
-    GREEK_UC_PI,
-    MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET,
-    MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET,
-
-    // [main board] row 2
-    GREEK_LC_ALPHA,
-    GREEK_UC_ALPHA,
-    GREEK_LC_SIGMA,
-    GREEK_UC_SIGMA,
-    GREEK_LC_DELTA,
-    GREEK_UC_DELTA,
-    GREEK_LC_PHI,
-    GREEK_UC_PHI,
-    GREEK_LC_GAMMA,
-    GREEK_UC_GAMMA,
-    GREEK_LC_ETA,
-    GREEK_UC_ETA,
-    GREEK_LC_YOT,
-    GREEK_UC_YOT,
-    GREEK_LC_KAPPA,
-    GREEK_UC_KAPPA,
-    GREEK_LC_LAMDA,
-    GREEK_UC_LAMDA,
-    TWO_DOT_LEADER,
-    BULLET,
-
-    // [main board] row 3
-    GREEK_LC_ZETA,
-    GREEK_UC_ZETA,
-    GREEK_LC_XI,
-    GREEK_UC_XI,
-    GREEK_LC_CHI,
-    GREEK_UC_CHI,
-    GREEK_LC_FINAL_SIGMA,
-    // GREEK_UC_SIGMA, // Final sigma doesn't differentiate the capitalised form
-    GREEK_LC_BETA,
-    GREEK_UC_BETA,
-    GREEK_LC_NU,
-    GREEK_UC_NU,
-    GREEK_LC_MU,
-    GREEK_UC_MU,
-    MUCH_LESS_THAN,
-    MUCH_GREATER_THAN,
-    INTEGRAL,
+    PIPE
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -160,121 +63,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [DQUOTE_OPEN] = 0x201C,
     [DQUOTE_CLOSE] = 0x201D,
     [PRIME] = 0x2019,
-    [PIPE] = 0x2502,
-
-    // APL
-    [N_ARY_LOGICAL_AND] = 0x22C0,
-    [N_ARY_LOGICAL_OR] = 0x22C1,
-    [N_ARY_INTERSECT] = 0x22C2,
-    [N_ARY_UNION] = 0x22C3,
-    [SUBSET_OF] = 0x2282,
-    [SUPERSET_OF] = 0x2283,
-    [FORALL] = 0x2200,
-    [LEMNISCATE] = 0x221E, // ∞
-    [THERE_EXISTS] = 0x2203,
-    [PARTIAL_DIFFERENTIAL] = 0x2202,
-    [UP_TACK] = 0x22A5,
-    [DOWN_TACK] = 0x22A4,
-    [RIGHT_TACK] = 0x22A2,
-    [LEFT_TACK] = 0x22A3,
-    [UPWARDS_ARROW] = 0x2191,
-    [DOWNARDS_ARROW] = 0x2193,
-    [LEFTWARDS_ARROW] = 0x2190,
-    [RIGHTWARDS_ARROW] = 0x2192,
-    [LEFTRIGHT_ARROW] = 0x2194,
-    [LEFT_FLOOR] = 0x230A,
-    [LEFT_CEILING] = 0x2308,
-    [NOT_EQUAL_TO] = 0x2260,
-    [ASYMPTOTICALLY_EQUAL_TO] = 0x2243,
-    [NOT_ASYMPTOTICALLY_EQUAL_TO] = 0x2261,
-    [LESS_THAN_OR_EQUAL] = 0x2264,
-    [GREATER_THAN_OR_EQUAL] = 0x2265,
-
-    // Greek
-    // [main board] row 0
-    [CONTOUR_INTEGRAL] = 0x222E,
-    [COPTIC_LC_DEI] = 0x03EF,
-    [DOUBLE_DAGGER] = 0x2021,
-    [NABLA] = 0x2207,
-    [CENT] = 0x00A2,
-    [DEGREE] = 0x00B0,
-    [APL_QUAD] = 0x2395,
-    [DIVISION] = 0x00F7,
-    [MULTIPLICATION] = 0x00D7,
-    [PILCROW] = 0x00B6,
-    [LARGE_CIRCLE] = 0x25EF,
-    //  [THREE_EM_DASH] = 0x2E3B,
-    [HORIZONTAL_BAR] = 0x2015,
-    [APPROXIMATELY_EQUAL_TO] = 0x2248,
-    [DOUBLE_VERTICAL_LINE] = 0x2016,
-    [SQUARE_IMAGE_OF] = 0x228F,
-    [SQUARE_ORIGINAL_OF] = 0x2290,
-
-
-    // [main board] row 1
-    [GREEK_LC_THETA] = 0x03B8,
-    [GREEK_UC_THETA] = 0x0398,
-    [GREEK_LC_OMEGA] = 0x03C9,
-    [GREEK_UC_OMEGA] = 0x03A9,
-    [GREEK_LC_EPSILON] = 0x03B5,
-    [GREEK_UC_EPSILON] = 0x0395,
-    [GREEK_LC_RHO] = 0x03C1,
-    [GREEK_UC_RHO] = 0x03A1,
-    [GREEK_LC_TAU] = 0x03C4,
-    [GREEK_UC_TAU] = 0x03A4,
-    [GREEK_LC_PSI] = 0x03C8,
-    [GREEK_UC_PSI] = 0x03A8,
-    [GREEK_LC_UPSILON] = 0x03C5,
-    [GREEK_UC_UPSILON] = 0x03A5,
-    [GREEK_LC_IOTA] = 0x03B9,
-    [GREEK_UC_IOTA] = 0x0399,
-    [GREEK_LC_OMICRON] = 0x03BF,
-    [GREEK_UC_OMICRON] = 0x039F,
-    [GREEK_LC_PI] = 0x03C0,
-    [GREEK_UC_PI] = 0x03A0,
-    [MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET] = 0x27E6,
-    [MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET] = 0x27E7,
-
-    // [main board] row 2
-    [GREEK_LC_ALPHA] = 0x03B1,
-    [GREEK_UC_ALPHA] = 0x0391,
-    [GREEK_LC_SIGMA] = 0x03C3,
-    [GREEK_UC_SIGMA] = 0x03A3,
-    [GREEK_LC_DELTA] = 0x03B4,
-    [GREEK_UC_DELTA] = 0x0394,
-    [GREEK_LC_PHI] = 0x03C6,
-    [GREEK_UC_PHI] = 0x03A6,
-    [GREEK_LC_GAMMA] = 0x03B3,
-    [GREEK_UC_GAMMA] = 0x0393,
-    [GREEK_LC_ETA] = 0x03B7,
-    [GREEK_UC_ETA] = 0x0397,
-    [GREEK_LC_YOT] = 0x03F3,
-    [GREEK_UC_YOT] = 0x037F,
-    [GREEK_LC_KAPPA] = 0x03BA,
-    [GREEK_UC_KAPPA] = 0x039A,
-    [GREEK_LC_LAMDA] = 0x03BB,
-    [GREEK_UC_LAMDA] = 0x039B,
-    [TWO_DOT_LEADER] = 0x2025,
-    [BULLET] = 0x2022,
-
-    // [main board] row 3
-    [GREEK_LC_ZETA] = 0x03B6,
-    [GREEK_UC_ZETA] = 0x0396,
-    [GREEK_LC_XI] = 0x03BE,
-    [GREEK_UC_XI] = 0x039E,
-    [GREEK_LC_CHI] = 0x03C7,
-    [GREEK_UC_CHI] = 0x03A7,
-    [GREEK_LC_FINAL_SIGMA] = 0x03C2,
-    // [GREEK_UC_SIGMA] = 0x03A3, // Final sigma doesn't differentiate the capitalised form
-    [GREEK_LC_BETA] = 0x03B2,
-    [GREEK_UC_BETA] = 0x0392,
-    [GREEK_LC_NU] = 0x03BD,
-    [GREEK_UC_NU] = 0x039D,
-    [GREEK_LC_MU] = 0x03BC,
-    [GREEK_UC_MU] = 0x039C,
-    [MUCH_LESS_THAN] = 0x226A,
-    [MUCH_GREATER_THAN] = 0x226B,
-    [INTEGRAL] = 0x222B,
+    [PIPE] = 0x2502
 };
 
 /*
@@ -363,6 +152,92 @@ enum custom_keycodes {
     H_ROMAN_NUMERAL_IV,
     H_PASTE,
     H_CUT,
+
+    // APL layer
+    H_APL_LOGICAL_AND,
+    H_APL_LOGICAL_OR,
+    H_APL_INTERSECT,
+    H_APL_UNION,
+    H_APL_SUBSET_OF,
+    H_APL_SUPERSET_OF,
+    H_APL_FORALL,
+    H_APL_LEMNISCATE,
+    H_APL_THERE_EXISTS,
+    H_APL_PARTIAL_DIFFERENTIAL,
+    H_APL_UP_TACK,
+    H_APL_DOWN_TACK,
+    H_APL_RIGHT_TACK,
+    H_APL_LEFT_TACK,
+    H_APL_UPWARDS_ARROW,
+    H_APL_DOWNARDS_ARROW,
+    H_APL_LEFTWARDS_ARROW,
+    H_APL_RIGHTWARDS_ARROW,
+    H_APL_LEFTRIGHT_ARROW,
+    H_APL_LEFT_FLOOR,
+    H_APL_LEFT_CEILING,
+    H_APL_NOT_EQUAL_TO,
+    H_APL_ASYMPTOTICALLY_EQUAL_TO,
+    H_APL_NOT_ASYMPTOTICALLY_EQUAL_TO,
+    H_APL_LESS_THAN_OR_EQUAL,
+    H_APL_GREATER_THAN_OR_EQUAL,
+
+    // Symbol Layer
+    // [main board] row 0
+    H_SYMBOL_CONTOUR_INTEGRAL,
+    H_SYMBOL_COPTIC_LC_DEI,
+    H_SYMBOL_DOUBLE_DAGGER,
+    H_SYMBOL_NABLA,
+    H_SYMBOL_CENT,
+    H_SYMBOL_DEGREE,
+    H_SYMBOL_APL_QUAD,
+    H_SYMBOL_DIVISION,
+    H_SYMBOL_MULTIPLICATION,
+    H_SYMBOL_PILCROW,
+    H_SYMBOL_LARGE_CIRCLE,
+    H_SYMBOL_HORIZONTAL_BAR,
+    H_SYMBOL_APPROXIMATELY_EQUAL_TO,
+    H_SYMBOL_DOUBLE_VERTICAL_LINE,
+    H_SYMBOL_SQUARE_IMAGE_OF,
+    H_SYMBOL_SQUARE_ORIGINAL_OF,
+
+    // [main board] row 1
+    H_SYMBOL_GREEK_THETA,
+    H_SYMBOL_GREEK_OMEGA,
+    H_SYMBOL_GREEK_EPSILON,
+    H_SYMBOL_GREEK_RHO,
+    H_SYMBOL_GREEK_TAU,
+    H_SYMBOL_GREEK_PSI,
+    H_SYMBOL_GREEK_UPSILON,
+    H_SYMBOL_GREEK_IOTA,
+    H_SYMBOL_GREEK_OMICRON,
+    H_SYMBOL_GREEK_PI,
+    H_SYMBOL_MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET,
+    H_SYMBOL_MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET,
+
+    // [main board] row 2
+    H_SYMBOL_GREEK_ALPHA,
+    H_SYMBOL_GREEK_SIGMA,
+    H_SYMBOL_GREEK_DELTA,
+    H_SYMBOL_GREEK_PHI,
+    H_SYMBOL_GREEK_GAMMA,
+    H_SYMBOL_GREEK_ETA,
+    H_SYMBOL_GREEK_YOT,
+    H_SYMBOL_GREEK_KAPPA,
+    H_SYMBOL_GREEK_LAMDA,
+    H_SYMBOL_TWO_DOT_LEADER,
+    H_SYMBOL_BULLET,
+
+    // [main board] row 3
+    H_SYMBOL_GREEK_ZETA,
+    H_SYMBOL_GREEK_XI,
+    H_SYMBOL_GREEK_CHI,
+    H_SYMBOL_GREEK_FINAL_SIGMA,
+    H_SYMBOL_GREEK_BETA,
+    H_SYMBOL_GREEK_NU,
+    H_SYMBOL_GREEK_MU,
+    H_SYMBOL_MUCH_LESS_THAN,
+    H_SYMBOL_MUCH_GREATER_THAN,
+    H_SYMBOL_INTEGRAL
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -403,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      H_LOCAL,           H_NETWORK,         H_SYSTEM,             H_REFRESH,            H_BUFFER,                                                 H_SQUARE,                  H_CIRCLE,                              H_TRIANGLE,                              H_DIAMOND,              H_REPEAT,          H_TRANSMIT,           H_STATUS,            H_SUSPEND,           KC_CLCK,           //14
      KC_F1,   KC_F2,    H_CLOSE,  H_OPEN,  KC_ESC,               KC_QUES,    KC_EXLM,  H_LEFT_PAREN__LEFT_BRACKET, H_RIGHT_PAREN__RIGHT_BRACKET, H_HAND_LEFT, H_HAND_RIGHT, H_ROMAN_NUMERAL_I, H_ROMAN_NUMERAL_II, H_ROMAN_NUMERAL_III, H_ROMAN_NUMERAL_IV, KC_UNDS,       KC_LABK, KC_RABK,  X(PIPE), KC_LCBR,    KC_RCBR,  H_COMPLETE,          KC_CIRC,   KC_PERC,  KC_HASH,  KC_DLR,  //26
 
-     KC_F3,   KC_F4,    H_FIND,   H_WRITE, KC_LEAD,  H_DOUBLE_QUOTE__PLUS_MINUS, KC_GRAVE,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,    KC_6,     KC_7,    KC_8,     KC_9,    KC_0,     KC_MINS,  KC_EQL,  KC_NUBS, H_L_BRACE__L_CHEVRON,  H_R_BRACE__R_CHEVRON,  H_UNDO,    KC_TILD,   KC_SLSH,  KC_PAST,  KC_PMNS, //27
+     KC_F3,   KC_F4,    H_FIND,   H_WRITE, KC_LEAD,  H_DOUBLE_QUOTE__PLUS_MINUS, KC_GRAVE,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,    KC_6,     KC_7,    KC_8,     KC_9,    KC_0,     KC_MINS,  KC_EQL,  KC_BACKSLASH, H_L_BRACE__L_CHEVRON,  H_R_BRACE__R_CHEVRON,  H_UNDO,    KC_TILD,   KC_SLSH,  KC_PAST,  KC_PMNS, //27
      KC_F5,   KC_F6,    H_MARK,   H_UNDO,  H_PASTE,  H_CUT ,   KC_TAB ,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,    KC_Y,     KC_U,    KC_I,     KC_O,    KC_P,     KC_LBRC,  KC_RBRC, KC_BSPC, KC_CLEAR, KC_HOME,                                                                 KC_P7,     KC_P8,    KC_P9,    KC_PPLS, //26
      KC_F7,   KC_F8,    KC_SELECT,H_DEBUG, MO(_FN),  KC_NO,       MO(_APL), KC_A,     KC_S,     KC_D,     KC_F,     KC_G,    KC_H,     KC_J,    KC_K,     KC_L,    KC_SCOLON,  KC_QUOT,  KC_ENT , H_LINE, H_PAGE,                                                           KC_P4,     KC_P5,    KC_P6,    KC_AMPR, //25
      KC_F9,   KC_F10,   H_TTY,    KC_LOCK, KC_HOME,  KC_END ,  MO(_GREEK), KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,    KC_B,     KC_N,    KC_M,     KC_COMM, KC_DOT,   KC_SLSH,  KC_RSFT, MO(_GREEK),KC_UP,    KC_END,                                                              KC_P1,     KC_P2,    KC_P3,    KC_EQL,  //26
@@ -435,11 +310,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
                              FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
 
-                             FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
-                             FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(N_ARY_LOGICAL_AND), X(N_ARY_LOGICAL_OR), X(N_ARY_INTERSECT), X(N_ARY_UNION), X(SUBSET_OF),X(SUPERSET_OF), X(FORALL),X(LEMNISCATE), X(THERE_EXISTS),X(PARTIAL_DIFFERENTIAL),      FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
-                             FT,      FT,      FT,       FT,       FT,       FT,       FT,  X(UP_TACK), X(DOWN_TACK), X(RIGHT_TACK), X(LEFT_TACK), X(UPWARDS_ARROW),X(DOWNARDS_ARROW), X(LEFTWARDS_ARROW),X(RIGHTWARDS_ARROW), X(LEFTRIGHT_ARROW),     FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT,
-                             FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,  X(LEFT_FLOOR), X(LEFT_CEILING), X(NOT_EQUAL_TO), X(ASYMPTOTICALLY_EQUAL_TO),X(NOT_ASYMPTOTICALLY_EQUAL_TO), X(LESS_THAN_OR_EQUAL),X(GREATER_THAN_OR_EQUAL),      FT,      FT,       FT,       FT,      FT,      FT,       FT,                            FT,      FT,       FT,      FT,
-                             FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,                                      FT,      FT,       FT,      FT
+                             FT, FT, FT, FT, FT, FT, FT, FT,                FT,               FT,                 FT,                 FT,                            FT,                                FT,                       FT,                          FT,                    FT,                         FT, FT, FT, FT, FT, FT, FT, FT, FT, FT,
+                             FT, FT, FT, FT, FT, FT, FT, H_APL_LOGICAL_AND, H_APL_LOGICAL_OR, H_APL_INTERSECT,    H_APL_UNION,        H_APL_SUBSET_OF,               H_APL_SUPERSET_OF,                 H_APL_FORALL,             H_APL_LEMNISCATE,            H_APL_THERE_EXISTS,    H_APL_PARTIAL_DIFFERENTIAL, FT, FT, FT, FT, FT, FT, FT, FT, FT,
+                             FT, FT, FT, FT, FT, FT, FT, H_APL_UP_TACK,     H_APL_DOWN_TACK,  H_APL_RIGHT_TACK,   H_APL_LEFT_TACK,    H_APL_UPWARDS_ARROW,           H_APL_DOWNARDS_ARROW,              H_APL_LEFTWARDS_ARROW,    H_APL_RIGHTWARDS_ARROW,      H_APL_LEFTRIGHT_ARROW, FT,                         FT, FT, FT, FT, FT, FT, FT, FT,
+                             FT, FT, FT, FT, FT, FT, FT, FT,                H_APL_LEFT_FLOOR, H_APL_LEFT_CEILING, H_APL_NOT_EQUAL_TO, H_APL_ASYMPTOTICALLY_EQUAL_TO, H_APL_NOT_ASYMPTOTICALLY_EQUAL_TO, H_APL_LESS_THAN_OR_EQUAL, H_APL_GREATER_THAN_OR_EQUAL, FT,                    FT,                         FT, FT, FT, FT, FT, FT, FT, FT, FT,
+                             FT, FT, FT, FT, FT, FT, FT, FT,                FT,               FT,                 FT,                 FT,                            FT,                                FT,                       FT,                          FT,                    FT,                         FT, FT, FT, FT, FT, FT, FT, FT
                              ),
 
     /* _GREEK: lower/upper case greek (needs shift modifier application for upper case chars) from codepage U0370.pdf \
@@ -468,13 +343,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                FT,               FT,                 FT,                 FT,                 FT,                 FT,                FT,                FT,                 FT,                FT,               FT,                 FT,                  FT,                FT,
                                FT,      FT,      FT,       FT,       FT,                 FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,       FT,       FT,      FT,      FT,      FT,       FT,       FT,                  FT,      FT,       FT,      FT,
 
-                               FT,      FT,      FT,       FT,       FT, X(CONTOUR_INTEGRAL),  FT,  X(COPTIC_LC_DEI), X(DOUBLE_DAGGER), X(NABLA), X(CENT), X(DEGREE), X(APL_QUAD), X(DIVISION), X(MULTIPLICATION), X(PILCROW), X(LARGE_CIRCLE), X(HORIZONTAL_BAR), X(APPROXIMATELY_EQUAL_TO), X(DOUBLE_VERTICAL_LINE), X(SQUARE_IMAGE_OF), X(SQUARE_ORIGINAL_OF),       FT,       FT,                 FT,       FT,      FT,
-                               FT,      FT,      FT,       FT,       FT,       FT,       FT,  XP(GREEK_LC_THETA, GREEK_UC_THETA), XP(GREEK_LC_OMEGA, GREEK_UC_OMEGA), XP(GREEK_LC_EPSILON, GREEK_UC_EPSILON), XP(GREEK_LC_RHO, GREEK_UC_RHO), XP(GREEK_LC_TAU, GREEK_UC_TAU),XP(GREEK_LC_PSI, GREEK_UC_PSI), XP(GREEK_LC_UPSILON, GREEK_UC_UPSILON),XP(GREEK_LC_IOTA, GREEK_UC_IOTA), XP(GREEK_LC_OMICRON, GREEK_UC_OMICRON),XP(GREEK_LC_PI, GREEK_UC_PI), X(MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET), X(MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET),     FT,      FT,      FT,                            FT,      FT,       FT,      FT,
-                               FT,      FT,      FT,       FT,       FT,       FT,       FT,  XP(GREEK_LC_ALPHA, GREEK_UC_ALPHA), XP(GREEK_LC_SIGMA, GREEK_UC_SIGMA), XP(GREEK_LC_DELTA, GREEK_UC_DELTA), XP(GREEK_LC_PHI, GREEK_UC_PHI), XP(GREEK_LC_GAMMA, GREEK_UC_GAMMA),XP(GREEK_LC_ETA, GREEK_UC_ETA), XP(GREEK_LC_YOT, GREEK_UC_YOT),XP(GREEK_LC_KAPPA, GREEK_UC_KAPPA), XP(GREEK_LC_LAMDA, GREEK_UC_LAMDA), X(TWO_DOT_LEADER), X(BULLET),      FT,      FT,      FT,                                     FT,      FT,       FT,      FT,
-                               FT,      FT,      FT,       FT,       FT,       FT,       FT,  FT,  XP(GREEK_LC_ZETA, GREEK_UC_ZETA), XP(GREEK_LC_XI, GREEK_UC_XI), XP(GREEK_LC_CHI, GREEK_UC_CHI), XP(GREEK_LC_FINAL_SIGMA, GREEK_UC_SIGMA),XP(GREEK_LC_BETA, GREEK_UC_BETA), XP(GREEK_LC_NU, GREEK_UC_NU),XP(GREEK_LC_MU, GREEK_UC_MU), X(MUCH_LESS_THAN),X(MUCH_GREATER_THAN), X(INTEGRAL),      FT,      FT,      FT,      FT,                            FT,      FT,       FT,      FT,
-                               FT,      FT,      FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,       FT,      FT,       FT,      FT,       FT,      FT,       FT,       FT,      FT,      FT,                                     FT,      FT,       FT,      FT
+                               FT, FT, FT, FT, FT, H_SYMBOL_CONTOUR_INTEGRAL, FT, H_SYMBOL_COPTIC_LC_DEI, H_SYMBOL_DOUBLE_DAGGER, H_SYMBOL_NABLA,         H_SYMBOL_CENT,      H_SYMBOL_DEGREE,            H_SYMBOL_APL_QUAD,   H_SYMBOL_DIVISION,      H_SYMBOL_MULTIPLICATION, H_SYMBOL_PILCROW,        H_SYMBOL_LARGE_CIRCLE,      H_SYMBOL_HORIZONTAL_BAR,                         H_SYMBOL_APPROXIMATELY_EQUAL_TO,                  H_SYMBOL_DOUBLE_VERTICAL_LINE, H_SYMBOL_SQUARE_IMAGE_OF, H_SYMBOL_SQUARE_ORIGINAL_OF, FT, FT, FT, FT, FT,
+                               FT, FT, FT, FT, FT, FT,                        FT, H_SYMBOL_GREEK_THETA,   H_SYMBOL_GREEK_OMEGA,   H_SYMBOL_GREEK_EPSILON, H_SYMBOL_GREEK_RHO, H_SYMBOL_GREEK_TAU,         H_SYMBOL_GREEK_PSI,  H_SYMBOL_GREEK_UPSILON, H_SYMBOL_GREEK_IOTA,     H_SYMBOL_GREEK_OMICRON,  H_SYMBOL_GREEK_PI,          H_SYMBOL_MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET, H_SYMBOL_MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET, FT,                            FT,                       FT,                          FT, FT, FT, FT,
+                               FT, FT, FT, FT, FT, FT,                        FT, H_SYMBOL_GREEK_ALPHA,   H_SYMBOL_GREEK_SIGMA,   H_SYMBOL_GREEK_DELTA,   H_SYMBOL_GREEK_PHI, H_SYMBOL_GREEK_GAMMA,       H_SYMBOL_GREEK_ETA,  H_SYMBOL_GREEK_YOT,     H_SYMBOL_GREEK_KAPPA,    H_SYMBOL_GREEK_LAMDA,    H_SYMBOL_TWO_DOT_LEADER,    H_SYMBOL_BULLET,                                 FT,                                               FT,                            FT,                       FT,                          FT, FT, FT,
+                               FT, FT, FT, FT, FT, FT,                        FT, FT,                     H_SYMBOL_GREEK_ZETA,    H_SYMBOL_GREEK_XI,      H_SYMBOL_GREEK_CHI, H_SYMBOL_GREEK_FINAL_SIGMA, H_SYMBOL_GREEK_BETA, H_SYMBOL_GREEK_NU,      H_SYMBOL_GREEK_MU,       H_SYMBOL_MUCH_LESS_THAN, H_SYMBOL_MUCH_GREATER_THAN, H_SYMBOL_INTEGRAL,                               FT,                                               FT,                            FT,                       FT,                          FT, FT, FT, FT,
+                               FT, FT, FT, FT, FT, FT,                        FT, FT,                     FT,                     FT,                     FT,                 FT,                         FT,                  FT,                     FT,                      FT,                      FT,                         FT,                                              FT,                                               FT,                            FT,                       FT,                          FT, FT, FT
                                ),
-
     /* _FN: Function layer, media & LED mods
      * ,-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------.
      * |           |           |#|           |           |           |           |           |           |           |           |           |           |#|           |   Reset   |
@@ -538,6 +412,26 @@ void matrix_scan_keymap(void) {
 
 }
 
+#define CTRL_X SS_LCTL(SS_TAP(X_X))
+#define META_X SS_LALT(SS_TAP(X_X))
+#define RET    SS_TAP(X_ENTER)
+
+static void send_emacs_unicode(const char *str) {
+    push_mods();
+    send_string(CTRL_X SS_TAP(X_8) RET);
+    send_string(str);
+    send_string(RET);
+    pop_mods();
+}
+
+static void send_emacs_unicode_shift(const char *unshifted_str, const char *shifted_str) {
+    if (shift_pressed()) {
+        send_emacs_unicode(shifted_str);
+    } else {
+        send_emacs_unicode(unshifted_str);
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
@@ -551,12 +445,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case H_TERMINAL:
-            send_string("[TERMINAL] key");
+            send_string(META_X "vterm" RET);
             return false;
 
         case H_QUOTE:
             // wraps selected (editable) text in quotation marks
-            send_string(SS_LCTL(SS_TAP(X_X))SS_TAP(X_QUOTE)SS_LCTL(SS_TAP(X_V))SS_TAP(X_QUOTE));
+            send_string(CTRL_X SS_TAP(X_QUOTE) SS_LCTL(SS_TAP(X_V)) SS_TAP(X_QUOTE));
             return false;
 
         case H_OVERSTRIKE:
@@ -599,11 +493,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case H_CALL:
             // M-x
-            send_string(SS_LALT(SS_TAP(X_X)));
+            send_string(META_X);
             return false;
 
             // [daughter board] row 2 POS key macros
         case H_LOCAL:
+            // M-: eval-expression
             send_string(SS_LALT(SS_LSFT(SS_TAP(X_SCOLON))));
             return false;
 
@@ -612,6 +507,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case H_SYSTEM:
+            // M-! shell-command
             send_string(SS_LALT(SS_LSFT(SS_TAP(X_1))));
             return false;
 
@@ -620,11 +516,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case H_BUFFER:
-            send_string(SS_LCTL(SS_TAP(X_X)SS_TAP(X_B)));
+            // C-x C-b helm-buffers-list
+            send_string(SS_LCTL(SS_TAP(X_X) SS_TAP(X_B)));
             return false;
 
         case H_SQUARE:
-            send_string("[SQUARE] key");
+            send_string("SQUARE.");
             return false;
 
         case H_CIRCLE:
@@ -632,7 +529,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case H_TRIANGLE:
-            send_string("[TRIANGLE] key");
+            if (shift_pressed()) {
+                // C-u C-@ (C-s-2) to jump to mark from global mark ring
+                push_mods();
+                send_string(SS_LCTL(SS_TAP(X_U) SS_LSFT(SS_TAP(X_2))));
+                pop_mods();
+            } else {
+                // C-u C-SPC jump to mark from local mark ring
+                send_string(SS_LCTL(SS_TAP(X_U) SS_TAP(X_SPACE)));
+            }
             return false;
 
         case H_DIAMOND:
@@ -695,32 +600,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case H_DOUBLE_QUOTE__PLUS_MINUS:
-            if (get_mods() & MODS_SHIFT_MASK) {
-                send_unicode_string("±");
+            if (shift_pressed()) {
+                push_mods();
+                send_string(SS_LCTL(SS_TAP(X_X))SS_TAP(X_8)SS_TAP(X_KP_PLUS));
+                pop_mods();
             } else {
-                send_unicode_string("\"");
+                send_string("\"");
             }
             return false;
 
-        /* case H_COLON__TILDE: */
-        /*     if (get_mods() & MODS_SHIFT_MASK) { */
-        /*         send_unicode_string("∼"); */
-        /*     } else { */
-        /*         send_string(":"); */
-        /*     } */
-        /*     return false; */
-
         case H_L_BRACE__L_CHEVRON:
-            if (get_mods() & MODS_SHIFT_MASK) {
-                send_unicode_string("‹");
+            if (shift_pressed()) {
+                push_mods();
+                send_string("<");
+                pop_mods();
             } else {
                 send_string("{");
             }
             return false;
 
         case H_R_BRACE__R_CHEVRON:
-            if (get_mods() & MODS_SHIFT_MASK) {
-                send_unicode_string("›");
+            if (shift_pressed()) {
+                push_mods();
+                send_string(">");
+                pop_mods();
             } else {
                 send_string("}");
             }
@@ -854,18 +757,106 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
         case H_CUT:
-            if (get_mods() & MODS_SHIFT_MASK) {
+            if (shift_pressed()) {
                 CLEAN_MODS(send_string(SS_LALT(SS_TAP(X_W))));
             } else {
                 send_string(SS_LCTL(SS_TAP(X_W)));
             }
             return false;
+
+        // APL layer
+
+        case H_APL_LOGICAL_AND:                 { send_emacs_unicode("22C0"); return false; }
+        case H_APL_LOGICAL_OR:                  { send_emacs_unicode("22C1"); return false; }
+        case H_APL_INTERSECT:                   { send_emacs_unicode("22C2"); return false; }
+        case H_APL_UNION:                       { send_emacs_unicode("22C3"); return false; }
+        case H_APL_SUBSET_OF:                   { send_emacs_unicode("2282"); return false; }
+        case H_APL_SUPERSET_OF:                 { send_emacs_unicode("2283"); return false; }
+        case H_APL_FORALL:                      { send_emacs_unicode("2200"); return false; }
+        case H_APL_LEMNISCATE:                  { send_emacs_unicode("221E"); return false; }
+        case H_APL_THERE_EXISTS:                { send_emacs_unicode("2203"); return false; }
+        case H_APL_PARTIAL_DIFFERENTIAL:        { send_emacs_unicode("2202"); return false; }
+        case H_APL_UP_TACK:                     { send_emacs_unicode("22A5"); return false; }
+        case H_APL_DOWN_TACK:                   { send_emacs_unicode("22A4"); return false; }
+        case H_APL_RIGHT_TACK:                  { send_emacs_unicode("22A2"); return false; }
+        case H_APL_LEFT_TACK:                   { send_emacs_unicode("22A3"); return false; }
+        case H_APL_UPWARDS_ARROW:               { send_emacs_unicode("2191"); return false; }
+        case H_APL_DOWNARDS_ARROW:              { send_emacs_unicode("2193"); return false; }
+        case H_APL_LEFTWARDS_ARROW:             { send_emacs_unicode("2190"); return false; }
+        case H_APL_RIGHTWARDS_ARROW:            { send_emacs_unicode("2192"); return false; }
+        case H_APL_LEFTRIGHT_ARROW:             { send_emacs_unicode("2194"); return false; }
+        case H_APL_LEFT_FLOOR:                  { send_emacs_unicode("230A"); return false; }
+        case H_APL_LEFT_CEILING:                { send_emacs_unicode("2308"); return false; }
+        case H_APL_NOT_EQUAL_TO:                { send_emacs_unicode("2260"); return false; }
+        case H_APL_ASYMPTOTICALLY_EQUAL_TO:     { send_emacs_unicode("2243"); return false; }
+        case H_APL_NOT_ASYMPTOTICALLY_EQUAL_TO: { send_emacs_unicode("2261"); return false; }
+        case H_APL_LESS_THAN_OR_EQUAL:          { send_emacs_unicode("2264"); return false; }
+        case H_APL_GREATER_THAN_OR_EQUAL:       { send_emacs_unicode("2265"); return false; }
+
+        // Symbol Layer
+        // [main board] row 0
+        case H_SYMBOL_CONTOUR_INTEGRAL:       { send_emacs_unicode("222E"); return false; }
+        case H_SYMBOL_COPTIC_LC_DEI:          { send_emacs_unicode("03EF"); return false; }
+        case H_SYMBOL_DOUBLE_DAGGER:          { send_emacs_unicode("2021"); return false; }
+        case H_SYMBOL_NABLA:                  { send_emacs_unicode("2207"); return false; }
+        case H_SYMBOL_CENT:                   { send_emacs_unicode("00A2"); return false; }
+        case H_SYMBOL_DEGREE:                 { send_emacs_unicode("00B0"); return false; }
+        case H_SYMBOL_APL_QUAD:               { send_emacs_unicode("2395"); return false; }
+        case H_SYMBOL_DIVISION:               { send_emacs_unicode("00F7"); return false; }
+        case H_SYMBOL_MULTIPLICATION:         { send_emacs_unicode("00D7"); return false; }
+        case H_SYMBOL_PILCROW:                { send_emacs_unicode("00B6"); return false; }
+        case H_SYMBOL_LARGE_CIRCLE:           { send_emacs_unicode("25EF"); return false; }
+        case H_SYMBOL_HORIZONTAL_BAR:         { send_emacs_unicode("2015"); return false; }
+        case H_SYMBOL_APPROXIMATELY_EQUAL_TO: { send_emacs_unicode("2248"); return false; }
+        case H_SYMBOL_DOUBLE_VERTICAL_LINE:   { send_emacs_unicode("2016"); return false; }
+        case H_SYMBOL_SQUARE_IMAGE_OF:        { send_emacs_unicode("228F"); return false; }
+        case H_SYMBOL_SQUARE_ORIGINAL_OF:     { send_emacs_unicode("2290"); return false; }
+
+        // [main board] row 1
+        case H_SYMBOL_GREEK_THETA:                             { send_emacs_unicode_shift("03B8", "0398"); return false; }
+        case H_SYMBOL_GREEK_OMEGA:                             { send_emacs_unicode_shift("03C9", "03A9"); return false; }
+        case H_SYMBOL_GREEK_EPSILON:                           { send_emacs_unicode_shift("03B5", "0395"); return false; }
+        case H_SYMBOL_GREEK_RHO:                               { send_emacs_unicode_shift("03C1", "03A1"); return false; }
+        case H_SYMBOL_GREEK_TAU:                               { send_emacs_unicode_shift("03C4", "03A4"); return false; }
+        case H_SYMBOL_GREEK_PSI:                               { send_emacs_unicode_shift("03C8", "03A8"); return false; }
+        case H_SYMBOL_GREEK_UPSILON:                           { send_emacs_unicode_shift("03C5", "03A5"); return false; }
+        case H_SYMBOL_GREEK_IOTA:                              { send_emacs_unicode_shift("03B9", "0399"); return false; }
+        case H_SYMBOL_GREEK_OMICRON:                           { send_emacs_unicode_shift("03BF", "039F"); return false; }
+        case H_SYMBOL_GREEK_PI:                                { send_emacs_unicode_shift("03C0", "03A0"); return false; }
+        case H_SYMBOL_MATHEMATICAL_LEFT_WHITE_SQUARE_BRACKET:  { send_emacs_unicode("27E6"); return false; }
+        case H_SYMBOL_MATHEMATICAL_RIGHT_WHITE_SQUARE_BRACKET: { send_emacs_unicode("27E7"); return false; }
+
+        // [main board] row 2
+        case H_SYMBOL_GREEK_ALPHA:    { send_emacs_unicode_shift("03B1", "0391"); return false; }
+        case H_SYMBOL_GREEK_SIGMA:    { send_emacs_unicode_shift("03C3", "03A3"); return false; }
+        case H_SYMBOL_GREEK_DELTA:    { send_emacs_unicode_shift("03B4", "0394"); return false; }
+        case H_SYMBOL_GREEK_PHI:      { send_emacs_unicode_shift("03C6", "03A6"); return false; }
+        case H_SYMBOL_GREEK_GAMMA:    { send_emacs_unicode_shift("03B3", "0393"); return false; }
+        case H_SYMBOL_GREEK_ETA:      { send_emacs_unicode_shift("03B7", "0397"); return false; }
+        case H_SYMBOL_GREEK_YOT:      { send_emacs_unicode_shift("03F3", "037F"); return false; }
+        case H_SYMBOL_GREEK_KAPPA:    { send_emacs_unicode_shift("03BA", "039A"); return false; }
+        case H_SYMBOL_GREEK_LAMDA:    { send_emacs_unicode_shift("03BB", "039B"); return false; }
+        case H_SYMBOL_TWO_DOT_LEADER: { send_emacs_unicode("2025"); return false; }
+        case H_SYMBOL_BULLET:         { send_emacs_unicode("2022"); return false; }
+
+        // [main board] row 3
+        case H_SYMBOL_GREEK_ZETA:           { send_emacs_unicode_shift("03B6", "0396"); return false; }
+        case H_SYMBOL_GREEK_XI:             { send_emacs_unicode_shift("03BE", "039E"); return false; }
+        case H_SYMBOL_GREEK_CHI:            { send_emacs_unicode_shift("03C7", "03A7"); return false; }
+        case H_SYMBOL_GREEK_FINAL_SIGMA:    { send_emacs_unicode("03C2"); return false; }
+        case H_SYMBOL_GREEK_BETA:           { send_emacs_unicode_shift("03B2", "0392"); return false; }
+        case H_SYMBOL_GREEK_NU:             { send_emacs_unicode_shift("03BD", "039D"); return false; }
+        case H_SYMBOL_GREEK_MU:             { send_emacs_unicode_shift("03BC", "039C"); return false; }
+        case H_SYMBOL_MUCH_LESS_THAN:       { send_emacs_unicode("226A"); return false; }
+        case H_SYMBOL_MUCH_GREATER_THAN:    { send_emacs_unicode("226B"); return false; }
+        case H_SYMBOL_INTEGRAL:             { send_emacs_unicode("222B"); return false; }
+
         }
     }
 
     return true;
-};
+}
 
 void led_set_keymap(uint8_t usb_led) {
     // stub
-};
+}
